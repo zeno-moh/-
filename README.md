@@ -13,7 +13,6 @@
             border: 3px solid white;
             padding: 15px;
             border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             font-size: 1.5rem;
             background-color: rgba(255, 255, 255, 0.1);
             display: flex;
@@ -26,13 +25,10 @@
             padding: 20px;
             display: inline-block;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         #countdown {
             font-size: 3rem;
-            position: relative;
-            z-index: 2;
         }
 
         /* تنسيق المربعات */
@@ -42,31 +38,8 @@
             margin: 10px;
             display: inline-block;
             border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             font-size: 2rem;
-            width: 250px;
             background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        #days-left, #hours-left {
-            font-size: 2rem;
-        }
-
-        /* تأثير السقوط البطيء للستيكر 💯 */
-        .sticker {
-            position: fixed;
-            top: -10px;
-            left: 0;
-            color: white;
-            font-size: 2rem;
-            user-select: none;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
         }
     </style>
 </head>
@@ -84,21 +57,14 @@
         </div>
     </div>
 
-    <!-- ستيكر السقوط 💯 -->
-    <div class="sticker">
-        💯
-    </div>
-
     <script>
-        // مثال لتحديث عدد الزوار
         let visitorCount = 0;
         function updateVisitorCount() {
             visitorCount++;
             document.getElementById('visitor-count').innerText = visitorCount;
         }
-        setInterval(updateVisitorCount, 5000); // تحديث عدد الزوار كل 5 ثواني
+        setInterval(updateVisitorCount, 5000);
 
-        // مثال لعداد تنازلي
         const countdownDate = new Date("March 31, 2025 00:00:00").getTime();
         let countdownTimer = setInterval(function() {
             let now = new Date().getTime();
