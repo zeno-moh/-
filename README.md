@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 <head>
     <meta charset="UTF-8">
-    <title>العد التنازلي للأمتحان الوزاري</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عداد الزوار و العداد التنازلي</title>
     <style>
-        body {
-            text-align: center;
-            font-family: 'Traditional Arabic', serif;
-            background: #1a1a1a;
-            color: white;
-            margin-top: 20%;
-            overflow: hidden;
-        }
-
         /* مستطيل عدد الزوار */
         #visitors-box {
             position: absolute;
@@ -79,77 +70,51 @@
         }
     </style>
 </head>
-
 <body>
     <!-- مستطيل عدد الزوار -->
     <div id="visitors-box">
-        <img src="https://drive.google.com/uc?export=view&id=1pvJS3yrTtXNgonkINQ7O1XBA-GdhU7Iw" width="40">
-        <span id="visitor-count">0</span>
+        <div>عدد الزوار: <span id="visitor-count">0</span></div>
     </div>
 
-    <h1>عدد الأيام المتبقية للأمتحان الوزاري</h1>
-
-    <!-- المربعات لعرض الأيام والساعات المتبقية -->
-    <div id="days-left" class="box">عدد الأيام المتبقية: 0</div>
-    <div id="hours-left" class="box">عدد الساعات المتبقية: 0</div>
-
+    <!-- العداد التنازلي -->
     <div id="countdown-container">
-        <div id="countdown"></div>
+        <div id="countdown">
+            <span id="days-left">0</span> أيام
+            <span id="hours-left">0</span> ساعات
+        </div>
+    </div>
+
+    <!-- ستيكر السقوط 💯 -->
+    <div class="sticker">
+        💯
     </div>
 
     <script>
-        function countdown() {
-            const targetDate = new Date('2025-06-14T00:00:00').getTime();
-
-            setInterval(() => {
-                const now = new Date().getTime();
-                const timeLeft = targetDate - now;
-
-                if (timeLeft <= 0) {
-                    document.getElementById('countdown').innerText = 'انتهى العد التنازلي!';
-                    document.getElementById('days-left').innerText = 'عدد الأيام المتبقية: 0';
-                    document.getElementById('hours-left').innerText = 'عدد الساعات المتبقية: 0';
-                    return;
-                }
-
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const totalHours = Math.floor(timeLeft / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-                document.getElementById('days-left').innerText = `عدد الأيام المتبقية: ${days}`;
-                document.getElementById('hours-left').innerText = `عدد الساعات المتبقية: ${totalHours}`;
-
-                document.getElementById('countdown').innerHTML = `${days} : ${totalHours} : ${minutes} : ${seconds}`;
-            }, 1000);
-        }
-
-        function createSticker() {
-            const sticker = document.createElement('div');
-            sticker.className = 'sticker';
-            sticker.innerHTML = '💯';
-            document.body.appendChild(sticker);
-
-            sticker.style.left = Math.random() * window.innerWidth + 'px';
-            sticker.style.animationDuration = (Math.random() * 10 + 10) + 's';
-
-            setTimeout(() => sticker.remove(), 15000);
-        }
-
+        // مثال لتحديث عدد الزوار
+        let visitorCount = 0;
         function updateVisitorCount() {
-            let count = localStorage.getItem('visitorCount') || 0;
-            count = parseInt(count) + 1;
-            localStorage.setItem('visitorCount', count);
-            document.getElementById('visitor-count').innerText = count;
+            visitorCount++;
+            document.getElementById('visitor-count').innerText = visitorCount;
         }
+        setInterval(updateVisitorCount, 5000); // تحديث عدد الزوار كل 5 ثواني
 
-        updateVisitorCount();
+        // مثال لعداد تنازلي
+        const countdownDate = new Date("March 31, 2025 00:00:00").getTime();
+        let countdownTimer = setInterval(function() {
+            let now = new Date().getTime();
+            let distance = countdownDate - now;
 
-        countdown();
-        setInterval(createSticker, 5000);
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            document.getElementById('days-left').innerText = days;
+            document.getElementById('hours-left').innerText = hours;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerText = "انتهى الوقت!";
+            }
+        }, 1000);
     </script>
 </body>
-
 </html>
-
-ing countdown.html…]()
